@@ -1,0 +1,1 @@
+# yabaam - yet another boring application about money
