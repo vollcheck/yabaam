@@ -7,5 +7,7 @@
 
 ### yet another todo section to keep track on application development
 
+- [ ] ship page component for CurrencyPage
+- [ ] add button to hide menu in pages
 - [ ] remote API connection
-- [ ] allow to add your own exchange status?
+- [ ] allow to add your own exchange status (create pages dynamically)?
