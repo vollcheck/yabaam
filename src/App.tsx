@@ -33,9 +33,11 @@ const App: React.FC = () => {
           <Menu />
           <IonRouterOutlet id="main">
             <Route path="/" exact={true}>
+              {/* TODO: create home page */}
               <Redirect to="/page/Inbox" />
             </Route>
             <Route path="/page/:name" exact={true}>
+              {/* TODO: allow to request for `/currency/{CURR_CODE}` */}
               <Page />
             </Route>
           </IonRouterOutlet>
