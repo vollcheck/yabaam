@@ -1,3 +1,5 @@
+import "./Menu.css";
+
 import {
   IonContent,
   IonIcon,
@@ -8,11 +10,10 @@ import {
   IonMenu,
   IonMenuToggle,
   IonNote,
-} from '@ionic/react';
+} from "@ionic/react";
 
-import { useLocation } from 'react-router-dom';
-import { cashOutline } from 'ionicons/icons';
-import './Menu.css';
+import { cashOutline } from "ionicons/icons";
+import { useLocation } from "react-router-dom";
 
 interface CurrencyPage {
   title: string;
@@ -22,12 +23,12 @@ interface CurrencyPage {
 // TODO: Load that statically
 const currencyPages: CurrencyPage[] = [
   {
-    title: 'GBP',
-    url: '/currency/GBP',
+    title: "GBP",
+    url: "/currency/GBP",
   },
   {
-    title: 'EUR',
-    url: '/currency/EUR',
+    title: "EUR",
+    url: "/currency/EUR",
   },
 ];
 
@@ -43,7 +44,15 @@ const Menu: React.FC = () => {
           {currencyPages.map((currencyPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>
-                <IonItem className={location.pathname === currencyPage.url ? 'selected' : ''} routerLink={currencyPage.url} routerDirection="none" lines="none" detail={false}>
+                <IonItem
+                  className={
+                    location.pathname === currencyPage.url ? "selected" : ""
+                  }
+                  routerLink={currencyPage.url}
+                  routerDirection="none"
+                  lines="none"
+                  detail={false}
+                >
                   <IonIcon slot="start" icon={cashOutline} />
                   <IonLabel>{currencyPage.title}</IonLabel>
                 </IonItem>
