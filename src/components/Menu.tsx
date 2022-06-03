@@ -2,6 +2,8 @@ import "./Menu.css";
 
 import {
   IonContent,
+  IonFab,
+  IonFabButton,
   IonIcon,
   IonItem,
   IonLabel,
@@ -12,8 +14,9 @@ import {
   IonNote,
 } from "@ionic/react";
 
-import { cashOutline } from "ionicons/icons";
+import { add, cashOutline } from "ionicons/icons";
 import { useLocation } from "react-router-dom";
+import Popup from "./Popup";
 
 interface CurrencyPage {
   title: string;
@@ -31,6 +34,7 @@ const currencyPages: CurrencyPage[] = [
     url: "/currency/EUR",
   },
 ];
+
 
 const Menu: React.FC = () => {
   const location = useLocation();
@@ -59,7 +63,9 @@ const Menu: React.FC = () => {
               </IonMenuToggle>
             );
           })}
-        </IonList>
+           
+        </IonList>          
+        <Popup></Popup>
       </IonContent>
     </IonMenu>
   );

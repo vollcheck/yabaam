@@ -25,15 +25,31 @@ import { Redirect, Route } from "react-router-dom";
 import { IonReactRouter } from "@ionic/react-router";
 import Menu from "./components/Menu";
 import Page from "./pages/Page";
+import Popup from "./components/Popup";
+import { useState } from "react";
+
+interface currencies {
+  curriencies:string
+}
 
 setupIonicReact();
 
 const App: React.FC = () => {
+
+  /*
+  const [currencies,updateCurriences]  = useState([]);
+
+  const addCurrency = (currency: any) => {
+    updateCurriences([currencies,currency]);
+  }
+  */
+
   return (
     <IonApp>
       <IonReactRouter>
         <IonSplitPane contentId="main">
           <Menu />
+
           <IonRouterOutlet id="main">
             <Route path="/" exact={true}>
               {/* TODO: create home page */}
@@ -41,11 +57,15 @@ const App: React.FC = () => {
             </Route>
             <Route path="/currency/:name" exact={true}>
               {/* TODO: allow to request for `/currency/{CURR_CODE}` */}
+
               <Page />
+
             </Route>
+
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactRouter>
+
     </IonApp>
   );
 };

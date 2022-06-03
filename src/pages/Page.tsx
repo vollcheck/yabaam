@@ -12,6 +12,7 @@ import {
 
 import ExploreContainer from "../components/ExploreContainer";
 import { useParams } from "react-router";
+import Popup from "../components/Popup";
 
 const Page: React.FC = () => {
   const { name } = useParams<{ name: string }>();
@@ -34,6 +35,7 @@ const Page: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <ExploreContainer name={name} />
+
       </IonContent>
     </IonPage>
   );
