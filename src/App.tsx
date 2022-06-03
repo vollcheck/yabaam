@@ -26,24 +26,10 @@ import { IonReactRouter } from "@ionic/react-router";
 import Menu from "./components/Menu";
 import Page from "./pages/Page";
 import Popup from "./components/Popup";
-import { useState } from "react";
-
-interface currencies {
-  curriencies:string
-}
 
 setupIonicReact();
 
 const App: React.FC = () => {
-
-  /*
-  const [currencies,updateCurriences]  = useState([]);
-
-  const addCurrency = (currency: any) => {
-    updateCurriences([currencies,currency]);
-  }
-  */
-
   return (
     <IonApp>
       <IonReactRouter>
@@ -56,16 +42,11 @@ const App: React.FC = () => {
               <Redirect to="/page/Inbox" />
             </Route>
             <Route path="/currency/:name" exact={true}>
-              {/* TODO: allow to request for `/currency/{CURR_CODE}` */}
-
               <Page />
-
             </Route>
-
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactRouter>
-
     </IonApp>
   );
 };

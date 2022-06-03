@@ -14,22 +14,28 @@ const FetchCurrency: React.FC<ContainerProps> = ({ name }) => {
     fetch(url).then((res) => res.json())
   );
 
-  // if (isLoading) return "Loading...";
-
-  // if (error) return "An error has occurred: "; // + error.message;
-
-  const rates = data?.["rates"][0];
-  const bid = rates?.["bid"];
-  const ask = rates?.["ask"];
+  const getBidAndAsk = (data: any) => {
+    // TODO: Refactor that to return many values + desctructuring
+    return [data?.["rates"][0]["bid"], data?.["rates"][0]["ask"]];
+  };
 
   return (
     <QueryClientProvider client={queryClient}>
       <div className="container">
         <strong>{name}</strong>
         <p>What is your value?</p>
-        <p>
-          ask: {ask} bid: {bid}
-        </p>
+
+        {/* TODO: Do wait for data before displaying it (maybe skeleton?) */}
+        {isLoading ? (
+          <p>Downloading fresh currency data...</p>
+        ) : error ? (
+          <p>Having troubles fetching data, will try again in a minute...</p>
+        ) : (
+          <p>
+            {/* TODO: Refactor that along with `getBidAndAsk` */}
+            ask: {getBidAndAsk(data)[1]} bid: {getBidAndAsk(data)[0]}
+          </p>
+        )}
       </div>
     </QueryClientProvider>
   );

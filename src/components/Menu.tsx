@@ -1,11 +1,11 @@
 import "./Menu.css";
 
+import { CurrencyPage, currencyStore } from "../appStore";
 import {
   IonContent,
-  IonFab,
-  IonFabButton,
   IonIcon,
   IonItem,
+  IonItemDivider,
   IonLabel,
   IonList,
   IonListHeader,
@@ -14,38 +14,35 @@ import {
   IonNote,
 } from "@ionic/react";
 
-import { add, cashOutline } from "ionicons/icons";
-import { useLocation } from "react-router-dom";
 import Popup from "./Popup";
+import { cashOutline } from "ionicons/icons";
+import { useLocation } from "react-router-dom";
 
-interface CurrencyPage {
-  title: string;
-  url: string;
-}
+// const currencies = currencyStore.useState();
 
-// TODO: Load that statically
-const currencyPages: CurrencyPage[] = [
+const currencies: CurrencyPage[] = [
   {
-    title: "GBP",
+    code: "GBP",
     url: "/currency/GBP",
   },
   {
-    title: "EUR",
+    code: "EUR",
     url: "/currency/EUR",
   },
 ];
 
-
 const Menu: React.FC = () => {
   const location = useLocation();
 
+  const currencies = currencyStore.useState();
+
   return (
-    <IonMenu contentId="main" type="overlay">
+    <IonMenu contentId="main" type="reveal">
       <IonContent>
         <IonList id="currency-list">
           <IonListHeader>Currencies</IonListHeader>
           <IonNote>Check out exchange rates</IonNote>
-          {currencyPages.map((currencyPage, index) => {
+          {currencies.map((currencyPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>
                 <IonItem
@@ -58,14 +55,15 @@ const Menu: React.FC = () => {
                   detail={false}
                 >
                   <IonIcon slot="start" icon={cashOutline} />
-                  <IonLabel>{currencyPage.title}</IonLabel>
+                  <IonLabel>{currencyPage.code}</IonLabel>
                 </IonItem>
               </IonMenuToggle>
             );
           })}
-           
-        </IonList>          
-        <Popup></Popup>
+          <IonItemDivider />
+          <Popup currencies={currencies} />
+          {/* onClick={togglePopUp} */}
+        </IonList>
       </IonContent>
     </IonMenu>
   );
