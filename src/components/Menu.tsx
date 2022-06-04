@@ -1,6 +1,5 @@
 import "./Menu.css";
 
-import { CurrencyPage, currencyStore } from "../appStore";
 import {
   IonContent,
   IonIcon,
@@ -16,20 +15,8 @@ import {
 
 import Popup from "./Popup";
 import { cashOutline } from "ionicons/icons";
+import { currencyStore } from "../appStore";
 import { useLocation } from "react-router-dom";
-
-// const currencies = currencyStore.useState();
-
-const currencies: CurrencyPage[] = [
-  {
-    code: "GBP",
-    url: "/currency/GBP",
-  },
-  {
-    code: "EUR",
-    url: "/currency/EUR",
-  },
-];
 
 const Menu: React.FC = () => {
   const location = useLocation();
@@ -61,7 +48,7 @@ const Menu: React.FC = () => {
             );
           })}
           <IonItemDivider />
-          <Popup currencies={currencies} />
+          <Popup />
           {/* onClick={togglePopUp} */}
         </IonList>
       </IonContent>

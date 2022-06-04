@@ -1,6 +1,6 @@
 import "./ExploreContainer.css";
 
-import { IonFooter, IonTitle } from "@ionic/react";
+import { IonFooter, IonSkeletonText, IonTitle } from "@ionic/react";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 
 interface ContainerProps {
@@ -11,7 +11,7 @@ const queryClient = new QueryClient();
 
 const FetchCurrency: React.FC<ContainerProps> = ({ name }) => {
   const url = `http://api.nbp.pl/api/exchangerates/rates/C/${name}/?format=json`;
-  const { isLoading, error, data } = useQuery("currencyData", () =>
+  const { isFetching, data } = useQuery(["currencyData"], () =>
     fetch(url).then((res) => res.json())
   );
 
@@ -20,6 +20,9 @@ const FetchCurrency: React.FC<ContainerProps> = ({ name }) => {
     return [data?.["rates"][0]["bid"], data?.["rates"][0]["ask"]];
   };
 
+  // TODO: Remove that
+  console.log(useQuery("currencyData").data);
+
   return (
     <QueryClientProvider client={queryClient}>
       <div className="container">
@@ -27,15 +30,20 @@ const FetchCurrency: React.FC<ContainerProps> = ({ name }) => {
         <p className="subtitle">what is your value?</p>
 
         {/* TODO: Do wait for data before displaying it (maybe skeleton?) */}
-        {isLoading ? (
-          <p>Downloading fresh currency data...</p>
-        ) : error ? (
-          <p>Having troubles fetching data, will try again in a minute...</p>
+        {useQuery("currencyData").isFetching ? (
+          <>
+            <IonSkeletonText animated style={{ width: "88%" }} />
+            <IonSkeletonText animated style={{ width: "88%" }} />
+          </>
         ) : (
-          <div className="exchangeValuesContainer">
-            <p>ask: {getBidAndAsk(data)[1]}</p>
-            <p>bid: {getBidAndAsk(data)[0]}</p>
-          </div>
+          data && (
+            <>
+              <div className="exchangeValuesContainer">
+                <p>ask: {getBidAndAsk(data)[1]}</p>
+                <p>bid: {getBidAndAsk(data)[0]}</p>
+              </div>
+            </>
+          )
         )}
       </div>
     </QueryClientProvider>

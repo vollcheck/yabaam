@@ -3,13 +3,10 @@ import "./Popup.css";
 import { FormEvent, useState } from "react";
 import { IonButton, IonInput, IonItem, IonLabel } from "@ionic/react";
 
-import { CurrencyPage } from "../appStore";
+import { createCurrency } from "../utils";
+import { currencyStore } from "../appStore";
 
-interface PopupProps {
-  currencies: CurrencyPage[];
-}
-
-const Popup: React.FC<PopupProps> = ({ currencies }) => {
+const Popup = () => {
   const [popup, setPopup] = useState(false);
 
   const togglePopUp = () => {
@@ -18,21 +15,21 @@ const Popup: React.FC<PopupProps> = ({ currencies }) => {
 
   const [newCurrency, setNewCurrency] = useState<string | null>();
 
-  console.log(newCurrency);
-
-  const handleSubmit = (e: FormEvent): void => {
-    try {
-    } catch (e) {
-      console.error(e);
+  const handleSubmit = (event: FormEvent) => {
+    console.log(newCurrency); // TODO: Remove that
+    if (newCurrency && newCurrency.length == 3) {
+      currencyStore.update((s) => [
+        ...s,
+        createCurrency(newCurrency.toUpperCase()),
+      ]);
+    } else {
+      alert(
+        "Cannot create new currency: You need to provide three-letter currency code"
+      );
     }
+
+    event.preventDefault();
   };
-
-  // const v = () => {
-  //   currencyStore.update((s) => [...s, createCurrency("CHF")]);
-  // };
-
-  // const currencies = currencyStore.useState();
-  // console.log(currencies);
 
   return (
     <>
