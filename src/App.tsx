@@ -25,7 +25,6 @@ import { Redirect, Route } from "react-router-dom";
 import { IonReactRouter } from "@ionic/react-router";
 import Menu from "./components/Menu";
 import Page from "./pages/Page";
-import Popup from "./components/Popup";
 
 setupIonicReact();
 

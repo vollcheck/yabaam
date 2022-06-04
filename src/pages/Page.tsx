@@ -23,7 +23,7 @@ const Page: React.FC = () => {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle>{name}</IonTitle>
+          <IonTitle>{name} - currency values</IonTitle>
         </IonToolbar>
       </IonHeader>
 

@@ -1,5 +1,6 @@
 import "./ExploreContainer.css";
 
+import { IonFooter, IonTitle } from "@ionic/react";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 
 interface ContainerProps {
@@ -23,7 +24,7 @@ const FetchCurrency: React.FC<ContainerProps> = ({ name }) => {
     <QueryClientProvider client={queryClient}>
       <div className="container">
         <strong>{name}</strong>
-        <p>What is your value?</p>
+        <p className="subtitle">what is your value?</p>
 
         {/* TODO: Do wait for data before displaying it (maybe skeleton?) */}
         {isLoading ? (
@@ -31,10 +32,10 @@ const FetchCurrency: React.FC<ContainerProps> = ({ name }) => {
         ) : error ? (
           <p>Having troubles fetching data, will try again in a minute...</p>
         ) : (
-          <p>
-            {/* TODO: Refactor that along with `getBidAndAsk` */}
-            ask: {getBidAndAsk(data)[1]} bid: {getBidAndAsk(data)[0]}
-          </p>
+          <div className="exchangeValuesContainer">
+            <p>ask: {getBidAndAsk(data)[1]}</p>
+            <p>bid: {getBidAndAsk(data)[0]}</p>
+          </div>
         )}
       </div>
     </QueryClientProvider>
@@ -43,9 +44,18 @@ const FetchCurrency: React.FC<ContainerProps> = ({ name }) => {
 
 const ExploreContainer: React.FC<ContainerProps> = ({ name }) => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <FetchCurrency name={name} />
-    </QueryClientProvider>
+    <>
+      <QueryClientProvider client={queryClient}>
+        <FetchCurrency name={name} />
+      </QueryClientProvider>
+      <div className="y-footer">
+        <IonFooter>
+          <IonTitle size="small" color="medium">
+            made by JW/HL/JP squad 😏
+          </IonTitle>
+        </IonFooter>
+      </div>
+    </>
   );
 };
 
