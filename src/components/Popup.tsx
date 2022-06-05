@@ -20,7 +20,8 @@ const Popup = () => {
       currencyStore.update((s) => [
         ...s,
         createCurrency(newCurrency.toUpperCase()),
-      ]);
+      ])
+      togglePopUp()
     } else {
       alert(
         "Cannot create new currency: You need to provide three-letter currency code"
@@ -60,20 +61,20 @@ const Popup = () => {
                 </IonButton>
 
               </IonItem>
-              
+
             </form>
 
           </div>
         </div>
       )}
 
-    <IonButton expand="block" fill="clear" onClick={togglePopUp}>
-      Add another currency
-    </IonButton>
+      <IonButton expand="block" fill="clear" onClick={togglePopUp}>
+        Add another currency
+      </IonButton>
     </>
   );
 
-  
+
 };
 
 export default Popup;

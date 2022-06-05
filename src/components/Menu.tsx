@@ -1,6 +1,8 @@
 import "./Menu.css";
 
 import {
+  CreateAnimation,
+  createAnimation,
   IonButton,
   IonContent,
   IonIcon,
@@ -18,16 +20,17 @@ import Popup from "./Popup";
 import { cashOutline, trash } from "ionicons/icons";
 import { currencyStore } from "../appStore";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const Menu: React.FC = () => {
   const location = useLocation();
-
-
   const currencies = currencyStore.useState();
+  const [playAnimation, setPlayAnimation] = useState(false);
 
   const handleCurrencyDelete = () => {
+
     currencies.pop();
+    setPlayAnimation(true)
   }
 
   return (
@@ -48,24 +51,32 @@ const Menu: React.FC = () => {
                   lines="none"
                   detail={false}
                 >
-                  <IonIcon slot="start" icon={cashOutline} />
-                  <IonLabel>{currencyPage.code}</IonLabel>
-                  <IonButton expand="block" fill="clear" onClick={handleCurrencyDelete}>
-                  <IonIcon icon={trash}></IonIcon>
-                  </IonButton>
+                  <CreateAnimation
+                    duration={1500}
+                    fromTo={{
+                      property: 'opacity',
+                      fromValue: '1',
+                      toValue: `0`,
+                    }}
+                    play={playAnimation}
+                  >
+                    <IonIcon slot="start" icon={cashOutline} />
+                    <IonLabel>{currencyPage.code}</IonLabel>
+                    <IonButton expand="block" fill="clear" onClick={handleCurrencyDelete}>
+                      <IonIcon icon={trash}></IonIcon>
+                    </IonButton>
+                  </CreateAnimation>
                 </IonItem>
               </IonMenuToggle>
             );
           })}
           <IonItemDivider />
-          {/* onClick={togglePopUp} */} 
+          {/* onClick={togglePopUp} */}
         </IonList>
         <Popup />
       </IonContent>
     </IonMenu>
-
-    
   );
-};
+}
 
 export default Menu;

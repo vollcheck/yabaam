@@ -1,6 +1,6 @@
 import "./ExploreContainer.css";
 
-import { IonFooter, IonSkeletonText, IonTitle } from "@ionic/react";
+import { CreateAnimation, IonFooter, IonSkeletonText, IonTitle } from "@ionic/react";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 
 interface ContainerProps {
@@ -20,8 +20,6 @@ const FetchCurrency: React.FC<ContainerProps> = ({ name }) => {
     return [data?.["rates"][0]["bid"], data?.["rates"][0]["ask"]];
   };
 
-  // TODO: Remove that
-  console.log(useQuery("currencyData").data);
 
   return (
     <QueryClientProvider client={queryClient}>
