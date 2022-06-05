@@ -15,7 +15,7 @@ import {
 } from "@ionic/react";
 
 import Popup from "./Popup";
-import { cashOutline } from "ionicons/icons";
+import { cashOutline, trash } from "ionicons/icons";
 import { currencyStore } from "../appStore";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
@@ -51,7 +51,7 @@ const Menu: React.FC = () => {
                   <IonIcon slot="start" icon={cashOutline} />
                   <IonLabel>{currencyPage.code}</IonLabel>
                   <IonButton expand="block" fill="clear" onClick={handleCurrencyDelete}>
-                    Delete currency
+                  <IonIcon icon={trash}></IonIcon>
                   </IonButton>
                 </IonItem>
               </IonMenuToggle>
