@@ -58,9 +58,9 @@ const Menu: React.FC = () => {
             );
           })}
           <IonItemDivider />
-          <Popup />
           {/* onClick={togglePopUp} */} 
         </IonList>
+        <Popup />
       </IonContent>
     </IonMenu>
 
