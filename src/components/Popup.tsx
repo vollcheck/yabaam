@@ -16,7 +16,6 @@ const Popup = () => {
   const [newCurrency, setNewCurrency] = useState<string | null>();
 
   const handleSubmit = (event: FormEvent) => {
-    console.log(newCurrency); // TODO: Remove that
     if (newCurrency && newCurrency.length == 3) {
       currencyStore.update((s) => [
         ...s,
@@ -28,6 +27,7 @@ const Popup = () => {
       );
     }
 
+
     event.preventDefault();
   };
 
@@ -36,6 +36,7 @@ const Popup = () => {
       <IonButton expand="block" fill="clear" onClick={togglePopUp}>
         Add another currency
       </IonButton>
+
 
       {popup && (
         <div className="popup">

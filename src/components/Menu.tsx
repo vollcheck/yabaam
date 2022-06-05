@@ -1,6 +1,7 @@
 import "./Menu.css";
 
 import {
+  IonButton,
   IonContent,
   IonIcon,
   IonItem,
@@ -17,11 +18,17 @@ import Popup from "./Popup";
 import { cashOutline } from "ionicons/icons";
 import { currencyStore } from "../appStore";
 import { useLocation } from "react-router-dom";
+import { useState } from "react";
 
 const Menu: React.FC = () => {
   const location = useLocation();
 
+
   const currencies = currencyStore.useState();
+
+  const handleCurrencyDelete = () => {
+    currencies.pop();
+  }
 
   return (
     <IonMenu contentId="main" type="reveal">
@@ -43,16 +50,21 @@ const Menu: React.FC = () => {
                 >
                   <IonIcon slot="start" icon={cashOutline} />
                   <IonLabel>{currencyPage.code}</IonLabel>
+                  <IonButton expand="block" fill="clear" onClick={handleCurrencyDelete}>
+                    Delete currency
+                  </IonButton>
                 </IonItem>
               </IonMenuToggle>
             );
           })}
           <IonItemDivider />
           <Popup />
-          {/* onClick={togglePopUp} */}
+          {/* onClick={togglePopUp} */} 
         </IonList>
       </IonContent>
     </IonMenu>
+
+    
   );
 };
 
