@@ -1,10 +1,10 @@
-import "./Popup.css";
 
 import { FormEvent, useState } from "react";
-import { IonButton, IonInput, IonItem, IonLabel } from "@ionic/react";
+import { IonButton, IonIcon, IonInput, IonItem, IonLabel } from "@ionic/react";
 
 import { createCurrency } from "../utils";
 import { currencyStore } from "../appStore";
+import { add, addOutline, cashOutline, trash } from "ionicons/icons";
 
 const Popup = () => {
   const [popup, setPopup] = useState(false);
@@ -20,7 +20,8 @@ const Popup = () => {
       currencyStore.update((s) => [
         ...s,
         createCurrency(newCurrency.toUpperCase()),
-      ]);
+      ])
+      togglePopUp()
     } else {
       alert(
         "Cannot create new currency: You need to provide three-letter currency code"
@@ -33,18 +34,15 @@ const Popup = () => {
 
   return (
     <>
-      <IonButton expand="block" fill="clear" onClick={togglePopUp}>
-        Add another currency
-      </IonButton>
-
-
       {popup && (
-        <div className="popup">
+        <div  >
           {/* <div onClick={togglePopUp} className="overlay"></div> */}
-          <div className="popup-content">
+          <div >
             <form onSubmit={handleSubmit}>
               <IonItem>
-                <IonLabel>Currency:</IonLabel>
+                <IonLabel>
+                  <IonIcon slot="start" icon={cashOutline} />
+                </IonLabel>
                 <IonInput
                   name="newCurrency"
                   value={newCurrency}
@@ -58,17 +56,25 @@ const Popup = () => {
                   placeholder="three-letter code"
                   autoCapitalize="on"
                 />
+                <IonButton type="submit">
+                  <IonIcon icon={addOutline} />
+                </IonButton>
+
               </IonItem>
-              <input type="submit" />
+
             </form>
-            <button className="close-popup" onClick={togglePopUp}>
-              CLOSE
-            </button>
+
           </div>
         </div>
       )}
+
+      <IonButton expand="block" fill="clear" onClick={togglePopUp}>
+        Add another currency
+      </IonButton>
     </>
   );
+
+
 };
 
 export default Popup;
