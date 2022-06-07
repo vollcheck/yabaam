@@ -17,7 +17,7 @@ const FetchCurrency: React.FC<ContainerProps> = ({ name }) => {
 
   const getBidAndAsk = (data: any) => {
     // TODO: Refactor that to return many values + desctructuring
-    return [data?.["rates"][0]["bid"], data?.["rates"][0]["ask"]];
+    return [data?.["rates"][0]["bid"], data?.["rates"][0]["ask"], data?.["currency"]];
   };
 
   // TODO: Remove that
@@ -27,7 +27,8 @@ const FetchCurrency: React.FC<ContainerProps> = ({ name }) => {
     <QueryClientProvider client={queryClient}>
       <div className="container">
         <strong>{name}</strong>
-        <p className="subtitle">what is your value?</p>
+        <p className="subtitle">({getBidAndAsk(data)[2]})</p>
+        {/* <p className="subtitle">what is your value?</p> */}
 
         {/* TODO: Do wait for data before displaying it (maybe skeleton?) */}
         {useQuery("currencyData").isFetching ? (
