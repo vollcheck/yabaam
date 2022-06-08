@@ -1,6 +1,11 @@
 import "./ExploreContainer.css";
 
-import { CreateAnimation, IonFooter, IonSkeletonText, IonTitle } from "@ionic/react";
+import {
+  CreateAnimation,
+  IonFooter,
+  IonSkeletonText,
+  IonTitle,
+} from "@ionic/react";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 
 interface ContainerProps {
@@ -15,17 +20,22 @@ const FetchCurrency: React.FC<ContainerProps> = ({ name }) => {
     fetch(url).then((res) => res.json())
   );
 
-  const getBidAndAsk = (data: any) => {
+  const parseCurrency = (data: any) => {
     // TODO: Refactor that to return many values + desctructuring
-    return [data?.["rates"][0]["bid"], data?.["rates"][0]["ask"], data?.["currency"]];
+    return {
+      bid: data?.["rates"][0]["bid"],
+      ask: data?.["rates"][0]["ask"],
+      currency: data?.["currency"],
+    };
   };
 
+  const { bid, ask, currency } = parseCurrency(data);
 
   return (
     <QueryClientProvider client={queryClient}>
       <div className="container">
         <strong>{name}</strong>
-        <p className="subtitle">({getBidAndAsk(data)[2]})</p>
+        <p className="subtitle">({currency})</p>
         {/* <p className="subtitle">what is your value?</p> */}
 
         {/* TODO: Do wait for data before displaying it (maybe skeleton?) */}
@@ -38,8 +48,8 @@ const FetchCurrency: React.FC<ContainerProps> = ({ name }) => {
           data && (
             <>
               <div className="exchangeValuesContainer">
-                <p>ask: {getBidAndAsk(data)[1]}</p>
-                <p>bid: {getBidAndAsk(data)[0]}</p>
+                <p>ask: {ask}</p>
+                <p>bid: {bid}</p>
               </div>
             </>
           )

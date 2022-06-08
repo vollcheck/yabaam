@@ -2,7 +2,6 @@ import "./Menu.css";
 
 import {
   CreateAnimation,
-  createAnimation,
   IonButton,
   IonContent,
   IonIcon,
@@ -15,23 +14,17 @@ import {
   IonMenuToggle,
   IonNote,
 } from "@ionic/react";
+import { cashOutline, trash } from "ionicons/icons";
+import { useRef, useState } from "react";
 
 import Popup from "./Popup";
-import { cashOutline, trash } from "ionicons/icons";
 import { currencyStore } from "../appStore";
 import { useLocation } from "react-router-dom";
-import { useRef, useState } from "react";
 
 const Menu: React.FC = () => {
   const location = useLocation();
   const currencies = currencyStore.useState();
   const [playAnimation, setPlayAnimation] = useState(false);
-
-  const handleCurrencyDelete = () => {
-
-    currencies.pop();
-    setPlayAnimation(true)
-  }
 
   return (
     <IonMenu contentId="main" type="reveal">
@@ -54,16 +47,26 @@ const Menu: React.FC = () => {
                   <CreateAnimation
                     duration={1500}
                     fromTo={{
-                      property: 'opacity',
-                      fromValue: '1',
-                      toValue: `0`,
+                      property: "opacity",
+                      fromValue: "1",
+                      toValue: "0",
                     }}
                     play={playAnimation}
                   >
                     <IonIcon slot="start" icon={cashOutline} />
                     <IonLabel>{currencyPage.code}</IonLabel>
-                    <IonButton expand="block" fill="clear" onClick={handleCurrencyDelete}>
-                      <IonIcon icon={trash}></IonIcon>
+                    <IonButton
+                      expand="block"
+                      fill="clear"
+                      onClick={() =>
+                        currencyStore.update((s) => {
+                          currencies.filter(
+                            (c) => c.code !== currencyPage.code
+                          );
+                        })
+                      }
+                    >
+                      <IonIcon icon={trash} />
                     </IonButton>
                   </CreateAnimation>
                 </IonItem>
@@ -77,6 +80,6 @@ const Menu: React.FC = () => {
       </IonContent>
     </IonMenu>
   );
-}
+};
 
 export default Menu;

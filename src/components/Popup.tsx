@@ -1,10 +1,9 @@
-
 import { FormEvent, useState } from "react";
 import { IonButton, IonIcon, IonInput, IonItem, IonLabel } from "@ionic/react";
+import { add, addOutline, cashOutline, trash } from "ionicons/icons";
 
 import { createCurrency } from "../utils";
 import { currencyStore } from "../appStore";
-import { add, addOutline, cashOutline, trash } from "ionicons/icons";
 
 const Popup = () => {
   const [popup, setPopup] = useState(false);
@@ -20,14 +19,13 @@ const Popup = () => {
       currencyStore.update((s) => [
         ...s,
         createCurrency(newCurrency.toUpperCase()),
-      ])
-      togglePopUp()
+      ]);
+      togglePopUp();
     } else {
       alert(
         "Cannot create new currency: You need to provide three-letter currency code"
       );
     }
-
 
     event.preventDefault();
   };
@@ -35,36 +33,31 @@ const Popup = () => {
   return (
     <>
       {popup && (
-        <div  >
+        <div>
           {/* <div onClick={togglePopUp} className="overlay"></div> */}
-          <div >
-            <form onSubmit={handleSubmit}>
-              <IonItem>
-                <IonLabel>
-                  <IonIcon slot="start" icon={cashOutline} />
-                </IonLabel>
-                <IonInput
-                  name="newCurrency"
-                  value={newCurrency}
-                  onIonChange={(e) => {
-                    // Move following to `onSubmit` event
-                    // TODO: Prevent from reloading a page and adding a
-                    //       query parameters to the URL
-                    setNewCurrency(e?.detail["value"]);
-                  }}
-                  required={true}
-                  placeholder="three-letter code"
-                  autoCapitalize="on"
-                />
-                <IonButton type="submit">
-                  <IonIcon icon={addOutline} />
-                </IonButton>
-
-              </IonItem>
-
-            </form>
-
-          </div>
+          <form onSubmit={handleSubmit}>
+            <IonItem>
+              <IonLabel>
+                <IonIcon slot="start" icon={cashOutline} />
+              </IonLabel>
+              <IonInput
+                name="newCurrency"
+                value={newCurrency}
+                onIonChange={(e) => {
+                  // Move following to `onSubmit` event
+                  // TODO: Prevent from reloading a page and adding a
+                  //       query parameters to the URL
+                  setNewCurrency(e?.detail["value"]);
+                }}
+                required={true}
+                placeholder="three-letter code"
+                autoCapitalize="on"
+              />
+              <IonButton type="submit">
+                <IonIcon icon={addOutline} />
+              </IonButton>
+            </IonItem>
+          </form>
         </div>
       )}
 
@@ -73,8 +66,6 @@ const Popup = () => {
       </IonButton>
     </>
   );
-
-
 };
 
 export default Popup;
