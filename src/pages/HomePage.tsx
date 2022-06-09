@@ -3,10 +3,12 @@ import "./HomePage.css";
 import {
   IonButton,
   IonButtons,
+  IonCol,
   IonContent,
   IonHeader,
   IonMenuButton,
   IonPage,
+  IonRow,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -18,32 +20,26 @@ const HomePage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonMenuButton />	&larr; click here
-          </IonButtons>
-        </IonToolbar>
-      </IonHeader>
-
       <IonContent fullscreen>
-      <div className="containerr">
-      <h1>
-         <b> Welcome <br/>in the<br/>Current Currencies</b>
-      </h1>
-    </div>
-    <div className="but1">
-    <IonButton href="/about" color="light" slot="end" expand="block">Instruction</IonButton>   
-    </div>
-    <div className="but2">
-    <IonButton href="/avacur" color="light" slot="end" expand="block">Available Currencies</IonButton>   
-    </div>
-    <div className="but3">
-    <IonButton href="/about" color="light" slot="end" expand="block">Start</IonButton>   
-    </div>
-    <div className="containerrr">
-    <IonButton href="/about" color="light" slot="end" expand="block">About</IonButton>   
-    </div>
+        <IonRow>
+          <IonCol>
+            <img src="../assets/banner.png"></img>
+          </IonCol>
+        </IonRow>
+        <IonRow>
+          <IonCol>
+
+          </IonCol>
+          <IonCol>
+            <h2>How to use app?</h2>
+            <p>On the left site you have menu that give you possibility to check ask and bid values of every single currencies which is available on
+              NBP </p>
+            <h3>Example currencies</h3>
+            <img src="../assets/currencies.png"></img>
+          </IonCol>
+          <IonCol></IonCol>
+        </IonRow>
+          
       </IonContent>
     </IonPage>
   );

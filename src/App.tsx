@@ -22,8 +22,6 @@ import {
 } from "@ionic/react";
 import { Redirect, Route } from "react-router-dom";
 
-import About from "./pages/About";
-import Avacur from "./pages/Avacur";
 import HomePage from "./pages/HomePage";
 import { IonReactRouter } from "@ionic/react-router";
 import Menu from "./components/Menu";
@@ -40,9 +38,6 @@ const App: React.FC = () => {
 
           <IonRouterOutlet id="main">
             <Route path="/" exact={true} component={HomePage} />
-            <Route exact path="/Avacur" component={Avacur}></Route>
-            <Route exact path="/About" component={About}></Route>
-
             <Route path="/currency/:name" exact={true} component={Page} />
           </IonRouterOutlet>
         </IonSplitPane>
