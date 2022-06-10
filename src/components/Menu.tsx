@@ -60,7 +60,8 @@ const Menu: React.FC = () => {
                       fill="clear"
                       onClick={() =>
                         currencyStore.update((s) => {
-                          currencies.filter(
+                          console.log(currencyStore);
+                          return currencies.filter(
                             (c) => c.code !== currencyPage.code
                           );
                         })

@@ -20,34 +20,37 @@ import {
   IonSplitPane,
   setupIonicReact,
 } from "@ionic/react";
-import { Redirect, Route } from "react-router-dom";
 
 import About from "./pages/About";
 import Avacur from "./pages/Avacur";
+import { CurrencyProvider } from "./currencyContext";
 import HomePage from "./pages/HomePage";
 import { IonReactRouter } from "@ionic/react-router";
 import Menu from "./components/Menu";
 import Page from "./pages/Page";
+import { Route } from "react-router-dom";
 
 setupIonicReact();
 
 const App: React.FC = () => {
   return (
-    <IonApp>
-      <IonReactRouter>
-        <IonSplitPane contentId="main">
-          <Menu />
+    <CurrencyProvider>
+      <IonApp>
+        <IonReactRouter>
+          <IonSplitPane contentId="main">
+            <Menu />
 
-          <IonRouterOutlet id="main">
-            <Route path="/" exact={true} component={HomePage} />
-            <Route exact path="/Avacur" component={Avacur}></Route>
-            <Route exact path="/About" component={About}></Route>
+            <IonRouterOutlet id="main">
+              <Route path="/" exact={true} component={HomePage} />
+              <Route exact path="/Avacur" component={Avacur}></Route>
+              <Route exact path="/About" component={About}></Route>
 
-            <Route path="/currency/:name" exact={true} component={Page} />
-          </IonRouterOutlet>
-        </IonSplitPane>
-      </IonReactRouter>
-    </IonApp>
+              <Route path="/currency/:name" exact={true} component={Page} />
+            </IonRouterOutlet>
+          </IonSplitPane>
+        </IonReactRouter>
+      </IonApp>
+    </CurrencyProvider>
   );
 };
 

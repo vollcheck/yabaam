@@ -6,72 +6,75 @@ import {
   IonSkeletonText,
   IonTitle,
 } from "@ionic/react";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import {
+  CurrencyContext,
+  CurrencyContextType,
+  ICurrency,
+} from "../currencyContext";
+import { useCallback, useContext, useEffect, useState } from "react";
+
+const Footer = () => {
+  return (
+    <div className="y-footer">
+      <IonFooter>
+        <IonTitle size="small" color="medium">
+          made by JW/HL/JP squad 😏
+        </IonTitle>
+      </IonFooter>
+    </div>
+  );
+};
 
 interface ContainerProps {
   name: string;
 }
 
-const queryClient = new QueryClient();
+const ExploreContainer: React.FC<ContainerProps> = ({ name }) => {
+  const [currency, setCurrency] = useState<ICurrency | null>();
+  const { currencies, addCurrency, removeCurrency } = useContext(
+    CurrencyContext
+  ) as CurrencyContextType;
 
-const FetchCurrency: React.FC<ContainerProps> = ({ name }) => {
-  const url = `http://api.nbp.pl/api/exchangerates/rates/C/${name}/?format=json`;
-  const { isFetching, data } = useQuery(["currencyData"], () =>
-    fetch(url).then((res) => res.json())
-  );
-
-  const parseCurrency = (data: any) => {
-    // TODO: Refactor that to return many values + desctructuring
-    return {
-      bid: data?.["rates"][0]["bid"],
-      ask: data?.["rates"][0]["ask"],
-      currency: data?.["currency"],
-    };
+  const parseCurrency = (data: any): ICurrency => {
+    const code = data["code"];
+    const result = {
+      url: `/currency/${code}`,
+      code: code,
+      currency: data["currency"],
+      bid: data["rates"][0]["bid"],
+      ask: data["rates"][0]["ask"],
+    } as ICurrency;
+    return result;
   };
 
-  const { bid, ask, currency } = parseCurrency(data);
+  const fetchData = useCallback(async () => {
+    const url = `http://api.nbp.pl/api/exchangerates/rates/C/${name}/?format=json`;
+    const data = await fetch(url).then((res) => res.json());
+    const parsedData = parseCurrency(data);
+    setCurrency(parsedData);
+  }, []);
 
-  return (
-    <QueryClientProvider client={queryClient}>
-      <div className="container">
-        <strong>{name}</strong>
-        <p className="subtitle">({currency})</p>
-        {/* <p className="subtitle">what is your value?</p> */}
+  useEffect(() => {
+    fetchData().catch(console.error);
+  }, [fetchData]);
 
-        {/* TODO: Do wait for data before displaying it (maybe skeleton?) */}
-        {useQuery("currencyData").isFetching ? (
-          <>
-            <IonSkeletonText animated style={{ width: "88%" }} />
-            <IonSkeletonText animated style={{ width: "88%" }} />
-          </>
-        ) : (
-          data && (
-            <>
-              <div className="exchangeValuesContainer">
-                <p>ask: {ask}</p>
-                <p>bid: {bid}</p>
-              </div>
-            </>
-          )
-        )}
-      </div>
-    </QueryClientProvider>
-  );
-};
+  console.log(currencies);
 
-const ExploreContainer: React.FC<ContainerProps> = ({ name }) => {
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <FetchCurrency name={name} />
-      </QueryClientProvider>
-      <div className="y-footer">
-        <IonFooter>
-          <IonTitle size="small" color="medium">
-            made by JW/HL/JP squad 😏
-          </IonTitle>
-        </IonFooter>
+      <div className="container">
+        <strong>{name}</strong>
+        {currency && (
+          <>
+            <p className="subtitle">({currency["currency"]})</p>
+            <div className="exchangeValuesContainer">
+              <p>ask: {currency["ask"]}</p>
+              <p>bid: {currency["bid"]}</p>
+            </div>
+          </>
+        )}
       </div>
+      <Footer />
     </>
   );
 };

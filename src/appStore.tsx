@@ -1,3 +1,5 @@
+// TODO: To remove
+
 import { Store } from "pullstate";
 
 export interface CurrencyPage {
