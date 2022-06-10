@@ -1,42 +1,7 @@
+body {
+  text-align: center;
+}
 
-.containerr {
-    font-size: 150%;
-    text-align: center;
-    position: absolute;   
-    left: 0;
-    right: 0;
-    top: 35%;
-    transform: translateY(-50%);
-  }
-  .containerrr {
-    text-align: center;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 70%;
-    transform: translateY(-50%);
-  }
-  .but1 {
-    text-align: center;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 63%;
-    transform: translateY(-50%);
-  }
-  .but2 {
-    text-align: center;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 56%;
-    transform: translateY(-50%);
-  }
-  .but3 {
-    text-align: center;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 49%;
-    transform: translateY(-50%);
-  }
+table, th, td {
+  border: 1px solid black;
+}
